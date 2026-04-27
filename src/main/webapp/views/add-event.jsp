@@ -1,56 +1,105 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Event</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 
-<h2>Add Event</h2>
+<div class="page-header">
+    <div class="page-header-inner">
+        <h1>Create New Event</h1>
+        <p>Fill in the details to add a new campus event</p>
+    </div>
+</div>
 
-<%
-    String error = (String) request.getAttribute("error");
-    if (error != null) {
-%>
-<p style="color:red;"><%= error %></p>
-<% } %>
+<div class="container">
+    <%
+        String error = (String) request.getAttribute("error");
+        if (error != null) {
+    %>
+    <div class="error-msg"><%= error %></div>
+    <% } %>
 
-<form action="${pageContext.request.contextPath}/add-event" method="post" enctype="multipart/form-data">
+    <div class="form-card">
+        <form action="${pageContext.request.contextPath}/add-event" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Event Type</label>
+                <select name="type">
+                    <option value="workshop">Workshop</option>
+                    <option value="seminar">Seminar</option>
+                    <option value="clubsocial">Club Social Event</option>
+                    <option value="sports">Sports Activity</option>
+                </select>
+            </div>
 
-    Type:
-    <select name="type">
-        <option value="workshop">Workshop</option>
-        <option value="seminar">Seminar</option>
-        <option value="clubsocial">Club Social Event</option>
-        <option value="sports">Sports Activity</option>
-    </select>
-    <br><br>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" placeholder="Event title" required>
+            </div>
 
-    Title: <input type="text" name="title" required><br><br>
-    Organizer Name: <input type="text" name="organizerName" required><br><br>
-    Description: <textarea name="description" rows="3" cols="40" required></textarea><br><br>
-    Department/Club: <input type="text" name="departmentClub"><br><br>
-    Date: <input type="date" name="date" required><br><br>
-    Time: <input type="time" name="eventTime"><br><br>
-    Location: <input type="text" name="location"><br><br>
-    Capacity: <input type="number" name="capacity" min="1" required><br><br>
+            <div class="form-group">
+                <label>Organizer Name</label>
+                <input type="text" name="organizerName" placeholder="Who is organizing?" required>
+            </div>
 
-    Category:
-    <select name="category">
-        <option value="Educational">Educational</option>
-        <option value="Social">Social</option>
-        <option value="Sports">Sports</option>
-        <option value="Cultural">Cultural</option>
-        <option value="Technical">Technical</option>
-    </select>
-    <br><br>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="3" placeholder="Describe the event..." required></textarea>
+            </div>
 
-    Event Image (max 5MB): <input type="file" name="eventImage" accept="image/*"><br><br>
+            <div class="form-group">
+                <label>Department / Club</label>
+                <input type="text" name="departmentClub" placeholder="e.g. CS Club">
+            </div>
 
-    <button type="submit">Add Event</button>
-</form>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date" required>
+            </div>
 
-<br>
-<a href="${pageContext.request.contextPath}/events">Back to Events</a>
+            <div class="form-group">
+                <label>Time</label>
+                <input type="time" name="eventTime">
+            </div>
+
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" placeholder="e.g. Hall A">
+            </div>
+
+            <div class="form-group">
+                <label>Capacity</label>
+                <input type="number" name="capacity" min="1" placeholder="Max attendees" required>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category">
+                    <option value="Educational">Educational</option>
+                    <option value="Social">Social</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Technical">Technical</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Event Image (max 5MB)</label>
+                <input type="file" name="eventImage" accept="image/*">
+            </div>
+
+            <button type="submit">Create Event</button>
+        </form>
+    </div>
+
+    <div style="margin-top:1rem;">
+        <a class="back-link" href="${pageContext.request.contextPath}/events">Back to Events</a>
+    </div>
+</div>
 
 </body>
 </html>

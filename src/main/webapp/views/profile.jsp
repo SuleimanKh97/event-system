@@ -10,34 +10,66 @@
     }
 %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 
-<h2>My Profile</h2>
+<div class="page-header">
+    <div class="page-header-inner">
+        <h1>My Profile</h1>
+        <p>Update your personal information</p>
+    </div>
+</div>
 
-<form action="${pageContext.request.contextPath}/update-profile" method="post">
+<div class="container">
+    <div class="form-card">
+        <form action="${pageContext.request.contextPath}/update-profile" method="post">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" value="<%= user.getFullName() %>">
+            </div>
 
-    Name:
-    <input type="text" name="name" value="<%= user.getFullName() %>"><br><br>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" value="<%= user.getEmail() %>">
+            </div>
 
-    Email:
-    <input type="email" name="email" value="<%= user.getEmail() %>"><br><br>
+            <div class="form-group">
+                <label>Faculty</label>
+                <input type="text" name="faculty" value="<%= user.getFaculty() %>">
+            </div>
 
-    Faculty:
-    <input type="text" name="faculty" value="<%= user.getFaculty() %>"><br><br>
+            <div class="form-group">
+                <label>Department</label>
+                <input type="text" name="department" value="<%= user.getDepartment() %>">
+            </div>
 
-    Department:
-    <input type="text" name="department" value="<%= user.getDepartment() %>"><br><br>
+            <div class="form-group">
+                <label>Admission Year</label>
+                <input type="number" name="year" value="<%= user.getAdmissionYear() %>">
+            </div>
 
-    Year:
-    <input type="number" name="year" value="<%= user.getAdmissionYear() %>"><br><br>
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
 
-    <button type="submit">Update</button>
-
-</form>
+    <div style="margin-top:1rem;">
+        <% String role = user.getRole(); %>
+        <% if ("student".equalsIgnoreCase(role)) { %>
+            <a class="back-link" href="${pageContext.request.contextPath}/student/home">Back to Dashboard</a>
+        <% } else if ("organizer".equalsIgnoreCase(role)) { %>
+            <a class="back-link" href="${pageContext.request.contextPath}/organizer/home">Back to Dashboard</a>
+        <% } else if ("admin".equalsIgnoreCase(role)) { %>
+            <a class="back-link" href="${pageContext.request.contextPath}/admin/home">Back to Dashboard</a>
+        <% } %>
+    </div>
+</div>
 
 </body>
 </html>

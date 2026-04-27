@@ -75,4 +75,44 @@ public class RatingDAO {
 
         return ratings;
     }
+
+    public double getAverageRating(int eventId) {
+        String sql = "SELECT AVG(rating) AS avg_rating FROM ratings WHERE event_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, eventId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getDouble("avg_rating");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0.0;
+    }
+
+    public int getRatingCount(int eventId) {
+        String sql = "SELECT COUNT(*) AS cnt FROM ratings WHERE event_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, eventId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 }

@@ -1,39 +1,65 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Campus Event System</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 
-<h2>Register</h2>
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2>Create Account</h2>
+        <p class="auth-subtitle">Join the Campus Event System</p>
 
-<%
-    String error = (String) request.getAttribute("error");
-    if (error != null) {
-%>
-<p style="color:red;"><%= error %></p>
-<% } %>
+        <%
+            String error = (String) request.getAttribute("error");
+            if (error != null) {
+        %>
+        <div class="error-msg"><%= error %></div>
+        <% } %>
 
-<form action="${pageContext.request.contextPath}/register" method="post">
+        <form action="${pageContext.request.contextPath}/register" method="post">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" placeholder="Your full name" required>
+            </div>
 
-    Name: <input type="text" name="name" required><br><br>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
 
-    Email: <input type="email" name="email" required><br><br>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Choose a password" required>
+            </div>
 
-    Password: <input type="password" name="password" required><br><br>
+            <div class="form-group">
+                <label>Faculty</label>
+                <input type="text" name="faculty" placeholder="e.g. Engineering" required>
+            </div>
 
-    Faculty: <input type="text" name="faculty" required><br><br>
+            <div class="form-group">
+                <label>Department</label>
+                <input type="text" name="department" placeholder="e.g. Computer Science" required>
+            </div>
 
-    Department: <input type="text" name="department" required><br><br>
+            <div class="form-group">
+                <label>Admission Year</label>
+                <input type="number" name="year" placeholder="e.g. 2023" required>
+            </div>
 
-    Admission Year: <input type="number" name="year" required><br><br>
+            <button type="submit" style="width:100%; margin-top:0.5rem;">Create Account</button>
+        </form>
 
-    <button type="submit">Register</button>
-
-</form>
-<br>
-<a href="${pageContext.request.contextPath}/login">Already have an account? Login</a>
+        <div class="auth-footer">
+            Already have an account? <a href="${pageContext.request.contextPath}/login">Sign In</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
